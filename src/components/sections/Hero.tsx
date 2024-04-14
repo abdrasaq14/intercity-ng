@@ -1,4 +1,4 @@
-import { BusImage } from "../../assets";
+import { BusImage } from "../../assets/index";
 const Hero = () => {
     return (
         <div className="bg-overlay h-[100vh] w-full" style={{
