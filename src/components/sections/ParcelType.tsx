@@ -59,7 +59,7 @@ function ParcelType() {
                   {parcel.name}
                 </span>
                 <span className="font-[600] text-primary text-[1.5rem]">
-                  N{parcel.amount}
+                  ₦{parcel.amount}
                 </span>
 
                 <ul className="flex flex-col justify-center items-center mt-[2rem] gap-2">
