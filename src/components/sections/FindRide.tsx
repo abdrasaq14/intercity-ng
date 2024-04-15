@@ -42,9 +42,9 @@ export default function FindRide() {
     e.preventDefault();
     setIsLoading(true);
     if (
-      !tripDetails.from_city ||
-      !tripDetails.to_city ||
-      !tripDetails.departure_date
+      !tripDetails.from_city.trim() ||
+      !tripDetails.to_city.trim() ||
+      !tripDetails.departure_date.trim()
     ) {
       setIsLoading(false);
       setError("All fields are required");
@@ -112,7 +112,7 @@ export default function FindRide() {
               className="h-[4rem] p-3 border-input-border rounded-md border-[2px] focus:outline-none cursor-pointer text-secondary w-[100%]"
               onChange={handleInputChange}
             >
-              <option selected className="text-borderColor">
+              <option selected value="" className="text-borderColor">
                 Select Destination
               </option>
               {locations &&
@@ -134,7 +134,7 @@ export default function FindRide() {
               onChange={handleInputChange}
               name="to_city"
             >
-              <option selected className="text-borderColor">
+              <option value="" selected className="text-borderColor">
                 Select Destination
               </option>
               {locations &&
