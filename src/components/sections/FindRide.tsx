@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchCities } from "../../api/getCitie";
 import axiosInstance from "../../utils/axiosInstance";
-import { set } from "zod";
+import axios from "axios";
+import Loader from "../loader/Loader";
 
 interface ILocation {
   id: string;
@@ -22,6 +23,7 @@ export default function FindRide() {
   });
   const [error, setError] = useState("");
   const [availableRides, setAvailableRides] = useState<ItripDetils[]>([]);
+  const [isloading, setIsLoading] = useState(false);
   useEffect(() => {
     fetchCities().then((res) => {
       if (res) {
@@ -38,30 +40,66 @@ export default function FindRide() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("trip", tripDetails);
-    const res = await axiosInstance.get("/connections/find", {
-      params: {
-        from_city: tripDetails.from_city,
-        to_city: tripDetails.to_city,
-        departure_date: tripDetails.departure_date,
-        per_page: "10",
-        page: "1",
-      },
-    });
-    if (res.data.message) {
-      setError(res.data.message);
-    } else {
-      setAvailableRides(res.data.data);
+    setIsLoading(true);
+    if (
+      !tripDetails.from_city ||
+      !tripDetails.to_city ||
+      !tripDetails.departure_date
+    ) {
+      setIsLoading(false);
+      setError("All fields are required");
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      return;
+    }
+    try {
+      const res = await axiosInstance.get("/connections/find", {
+        params: {
+          from_city: tripDetails.from_city,
+          to_city: tripDetails.to_city,
+          departure_date: tripDetails.departure_date,
+          per_page: "10",
+          page: "1",
+        },
+      });
+      if (res.data.message) {
+        setIsLoading(false);
+        setError(res.data.message);
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      } else {
+        setIsLoading(false);
+        setAvailableRides(res.data.data);
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      if (axios.isAxiosError(error)) {
+        setError(error.message);
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      }
     }
   };
   return (
     <>
-      <div className="h-[4rem] min-w-[25rem] fixed bottom-[2%] left-0 bg-warning z-50 rounded-lg shadow-custom-shadow">
-        <span className="h-[20px] w-[20px] bg-[red] absolute top-[-15%] right-[-10px] rounded-full flex items-center justify-center text-white cursor-pointer">
-          x
-        </span>
-        {error && ()}
-      </div>
+      {error && (
+        <div className="h-[4rem] min-w-[25rem] fixed bottom-[2%] left-0 bg-warning z-50 rounded-lg shadow-custom-shadow text-secondary text-bold text-[1.2rem] flex items-center justify-center animate-error-animation">
+          <span
+            onClick={() => setError("")}
+            className="h-[20px] w-[20px] bg-[red] absolute top-[-15%] right-[-10px] rounded-full flex items-center justify-center text-white cursor-pointer"
+          >
+            x
+          </span>
+          <p>{error}</p>
+          <hr className="absolute h-[5px] w-[100%] bottom-0 left-0 bg-[red] animate-line-animation" />
+        </div>
+      )}
       <div className="flex w-full min-h-[5rem] p-3 md:px-[2rem] lg:px-[8rem] my-4">
         <form
           onSubmit={handleSubmit}
@@ -124,8 +162,11 @@ export default function FindRide() {
           </fieldset>
 
           <div className="flex flex-col lg:basis-[47%] justify-end">
-            <button className="bg-primary text-white rounded-full w-[100%] h-[4rem] font-bold hover:bg-hover hover:translate-y-[-10px] hover:transition-all duration-300 ease-in-out">
-              Find ride
+            <button
+              disabled={isloading}
+              className="bg-primary text-white rounded-full w-[100%] h-[4rem] font-bold hover:bg-hover hover:translate-y-[-10px] hover:transition-all duration-300 ease-in-out disabled:bg-gray-500"
+            >
+              {isloading ? <Loader /> : "Find ride"}
             </button>
           </div>
         </form>

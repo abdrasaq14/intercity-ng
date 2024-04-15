@@ -23,6 +23,16 @@ export default {
         md: "768px",
         lg: "1024px",
       },
+      animation: {
+        "error-animation": "fadeIn .4s linear forwards",
+        "line-animation": "bottomLine 2s linear forwards",
+        loader: "loader 1s linear infinite",
+      },
+    },
+  },
+  variants: {
+    extend: {
+      backgroundColor: ["disabled"],
     },
   },
   plugins: [
