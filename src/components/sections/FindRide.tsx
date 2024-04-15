@@ -41,6 +41,7 @@ export default function FindRide() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    console.log("tripDetails", tripDetails);
     if (
       !tripDetails.from_city.trim() ||
       !tripDetails.to_city.trim() ||
