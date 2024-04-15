@@ -164,7 +164,7 @@ export default function FindRide() {
           <div className="flex flex-col lg:basis-[47%] justify-end">
             <button
               disabled={isloading}
-              className="bg-primary text-white rounded-full w-[100%] h-[4rem] font-bold hover:bg-hover hover:translate-y-[-10px] hover:transition-all duration-300 ease-in-out disabled:bg-gray-500"
+              className="bg-primary text-white rounded-full w-[100%] h-[4rem] font-bold hover:bg-hover hover:translate-y-[-10px] hover:transition-all duration-300 ease-in-out disabled:bg-gray-500 disabled:hover:cursor-not-allowed"
             >
               {isloading ? <Loader /> : "Find ride"}
             </button>
