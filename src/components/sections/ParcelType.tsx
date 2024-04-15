@@ -43,9 +43,9 @@ function ParcelType() {
               className="relative flex flex-col gap-2 mt-[5rem] lg:mt-0 md:w-[70%] md:mx-auto lg:basis-[24%] rounded-[1rem] min-h-[25rem] shadow-custom-shadow"
               key={parcel.id}
             >
-              <div className="max-h-[50%] h-[50%] rounded-[1rem] overflow-hidden p-[2px] pt-[8px]">
+              <div className="max-h-[50%] h-[50%] rounded-[1rem] overflow-hidden">
                 <img
-                  className="max-h-[100%] h-[100%] object-cover w-[100%] max-w-[100%] rounded-[1rem]"
+                  className="max-h-[100%] h-[100%] object-cover w-[100%] max-w-[100%]"
                   src={
                     parcel.images[0]?.image_url
                       ? parcel.images[0]?.image_url
