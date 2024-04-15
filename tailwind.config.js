@@ -9,6 +9,7 @@ export default {
         secondary: "#102751",
         hover: "#ae5128",
         borderColor: "#575757",
+        warning: "#f3d0d0",
       },
       backgroundImage: {
         "hero-pattern": "url('/src/assets/bus.jpg')",
