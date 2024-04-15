@@ -40,7 +40,7 @@ function ParcelType() {
         <div className="flex flex-col justify-between lg:flex-row gap-[5rem] lg:gap-1 flex-wrap">
           {parcelType.map((parcel) => (
             <div
-              className="relative flex flex-col gap-2 mt-[5rem] lg:mt-0 md:w-[70%] md:mx-auto lg:basis-[24%] rounded-[1rem] min-h-[25rem] shadow-custom-shadow"
+              className="relative flex flex-col gap-2 mt-[5rem] lg:mt-0 md:w-[70%] md:mx-auto lg:basis-[24%] rounded-[1rem] min-h-[25rem] shadow-custom-shadow2"
               key={parcel.id}
             >
               <div className="max-h-[50%] h-[50%] rounded-[1rem] overflow-hidden">

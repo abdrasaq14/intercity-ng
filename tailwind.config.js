@@ -16,6 +16,7 @@ export default {
       },
       boxShadow: {
         "custom-shadow": "8px 6px 30px rgba(5, 8, 22, 0.1)",
+        "custom-shadow2": "2px 0px 10px rgba(5, 8, 22, 0.05)",
         "mobile-shadow": "-8px 6px 30px rgba(5, 8, 22, 0.1)",
       },
       screens: {
@@ -25,7 +26,11 @@ export default {
         lg: "1024px",
       },
       animation: {
-        "error-animation": "fadeIn .4s linear forwards",
+        "error-animation": "fadeIn .4s ease-in forwards",
+        slideUp: "slideUp 1.5s ease-in backwards",
+        slideDown: "slideDown 1.5s ease-in backwards",
+        slideLeft: "slideLeft 1.5s ease-in backwards",
+        slideRight: "slideRight 1.5s ease-in backwards",
         "line-animation": "bottomLine 2s linear forwards",
         loader: "loader 1s linear infinite",
       },
