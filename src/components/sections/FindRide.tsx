@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchCities } from "../../api/getCitie";
+import axiosInstance from "../../utils/axiosInstance";
+import { set } from "zod";
 
 interface ILocation {
   id: string;
@@ -11,9 +13,15 @@ interface ItripDetils {
   to_city: string;
   departure_date: string;
 }
-const TIME = ["08:00AM", "10:00AM", "01:00PM", "03:00PM", "05:00PM", "07:00PM"];
 export default function FindRide() {
   const [locations, setLocations] = useState<ILocation[]>([]);
+  const [tripDetails, setTripDetails] = useState<ItripDetils>({
+    from_city: "",
+    to_city: "",
+    departure_date: "",
+  });
+  const [error, setError] = useState("");
+  const [availableRides, setAvailableRides] = useState<ItripDetils[]>([]);
   useEffect(() => {
     fetchCities().then((res) => {
       if (res) {
@@ -21,27 +29,61 @@ export default function FindRide() {
       }
     });
   }, []);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setTripDetails({ ...tripDetails, [name]: value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("trip", tripDetails);
+    const res = await axiosInstance.get("/connections/find", {
+      params: {
+        from_city: tripDetails.from_city,
+        to_city: tripDetails.to_city,
+        departure_date: tripDetails.departure_date,
+        per_page: "10",
+        page: "1",
+      },
+    });
+    if (res.data.message) {
+      setError(res.data.message);
+    } else {
+      setAvailableRides(res.data.data);
+    }
+  };
   return (
     <>
       <div className="h-[4rem] min-w-[25rem] fixed bottom-[2%] left-0 bg-warning z-50 rounded-lg shadow-custom-shadow">
         <span className="h-[20px] w-[20px] bg-[red] absolute top-[-15%] right-[-10px] rounded-full flex items-center justify-center text-white cursor-pointer">
           x
         </span>
+        {error && ()}
       </div>
       <div className="flex w-full min-h-[5rem] p-3 md:px-[2rem] lg:px-[8rem] my-4">
-        <form className="relative flex flex-col justify-between lg:flex-row gap-[2rem] flex-wrap bg-white shadow-custom-shadow left-[50%] transform -translate-x-[50%] mt-[-10%] w-full p-[3rem] rounded-lg">
+        <form
+          onSubmit={handleSubmit}
+          className="relative flex flex-col justify-between lg:flex-row gap-[2rem] flex-wrap bg-white shadow-custom-shadow left-[50%] transform -translate-x-[50%] mt-[-10%] w-full p-[3rem] rounded-lg"
+        >
           <fieldset className="flex flex-col gap-2 lg:basis-[47%]">
             <label className="font-[600]">From</label>
             <select
-              name=""
+              name="from_city"
               className="h-[4rem] p-3 border-input-border rounded-md border-[2px] focus:outline-none cursor-pointer text-secondary w-[100%]"
+              onChange={handleInputChange}
             >
               <option selected className="text-borderColor">
                 Select Destination
               </option>
               {locations &&
                 locations?.map((location) => (
-                  <option key={location.id} className="text-secondary">
+                  <option
+                    key={location.id}
+                    className="text-secondary"
+                    value={location?.name}
+                  >
                     {location.name}
                   </option>
                 ))}
@@ -50,15 +92,20 @@ export default function FindRide() {
           <fieldset className="flex flex-col gap-2 lg:basis-[47%] w-[100%]">
             <label className="font-[600]">To</label>
             <select
-              name=""
               className="h-[4rem] p-3 border-input-border rounded-md border-[2px] focus:outline-none cursor-pointer text-secondary w-[100%]"
+              onChange={handleInputChange}
+              name="to_city"
             >
               <option selected className="text-borderColor">
                 Select Destination
               </option>
               {locations &&
                 locations?.map((location) => (
-                  <option key={location.id} className="text-secondary">
+                  <option
+                    key={location.id}
+                    className="text-secondary"
+                    value={location?.name}
+                  >
                     {location.name}
                   </option>
                 ))}
@@ -69,8 +116,10 @@ export default function FindRide() {
 
             <input
               type="date"
+              name="departure_date"
               className="h-[4rem] w-[100%] p-3 border-input-border rounded-md border-[2px] focus:outline-none cursor-pointer text-secondary"
-              placeholder="Select Date"
+              value={tripDetails.departure_date}
+              onChange={handleInputChange}
             />
           </fieldset>
 

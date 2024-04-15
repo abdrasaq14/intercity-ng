@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: 'https://sandbox.myt40.com/api/v1/retailer/',
+    baseURL: 'https://sandbox.myt40.com/api/v1/retailer',
     withCredentials: true
 })
 

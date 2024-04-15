@@ -7,6 +7,14 @@ export const fetchCities = async () => {
   }
   
 }
+
+// export const findRide = async () => {
+//   const res = await axiosInstance.get("/connections/find")
+//   if (res.data) {
+//     return res.data
+//   }
+  
+// }
 // const sdk = require('api')('@intercity/v2.0#i6owflu0yhhqv');
 
 // sdk.auth('Bearer pk_$2y$10$CS3ALjvEUqqSyBTJLYK1m.mUyZgjrK05udslEiMTnOyu./5vS05QC');
