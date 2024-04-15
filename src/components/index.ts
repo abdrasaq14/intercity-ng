@@ -1,4 +1,3 @@
-// @ts-nocheck
 export const navBarItem = [
     {
         name: "Home",
@@ -17,3 +16,10 @@ export const navBarItem = [
         link: "/contact"
     }
 ]
+
+export const heroItem = {
+    h1: [
+    "Reliable", "transport services", "for everyone"
+    ],
+    p: "Search, compare and book reliable intrestate bus and logistics operators in Nigeria",
+}

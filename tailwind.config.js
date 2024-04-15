@@ -1,34 +1,40 @@
 /** @type {import('tailwindcss').Config} */
-import plugin from 'tailwindcss/plugin'
+import plugin from "tailwindcss/plugin";
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        'primary': '#f0652b',
-        'secondary': '#000000'
+        primary: "#f0652b",
+        secondary: "#102751",
+        hover: "#ae5128",
+        borderColor: "#575757",
       },
       backgroundImage: {
-        'hero-pattern': "url('/src/assets/bus.jpg')",
+        "hero-pattern": "url('/src/assets/bus.jpg')",
       },
-    
+      boxShadow: {
+        "custom-shadow": "10px 8px 20px rgba(5, 8, 22, 0.2)",
+      },
+      screens: {
+        xs: "450px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+      },
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
-   plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities }) {
       addUtilities({
-        '.bg-overlay': {
-          'background': 'linear-gradient(var(--overlay-angle, 0deg), var(--overlay-colors)), var(--overlay-image)',
-          'background-position': 'center',
-          'background-size': 'cover',
-          'background-repeat': 'no-repeat',
-          
+        ".bg-overlay": {
+          background:
+            "linear-gradient(var(--overlay-angle, 0deg), var(--overlay-colors)), var(--overlay-image)",
+          "background-position": "center",
+          "background-size": "cover",
+          "background-repeat": "no-repeat",
         },
       });
-    }),],
-}
-
+    }),
+  ],
+};
