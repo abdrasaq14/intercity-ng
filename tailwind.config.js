@@ -15,7 +15,8 @@ export default {
         "hero-pattern": "url('/src/assets/bus.jpg')",
       },
       boxShadow: {
-        "custom-shadow": "10px 8px 20px rgba(5, 8, 22, 0.2)",
+        "custom-shadow": "8px 6px 30px rgba(5, 8, 22, 0.1)",
+        "mobile-shadow": "-8px 6px 30px rgba(5, 8, 22, 0.1)",
       },
       screens: {
         xs: "450px",

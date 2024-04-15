@@ -22,7 +22,7 @@ export default function FindRide() {
     departure_date: "",
   });
   const [error, setError] = useState("");
-  const [availableRides, setAvailableRides] = useState<ItripDetils[]>([]);
+  const [, setAvailableRides] = useState<ItripDetils[]>([]);
   const [isloading, setIsLoading] = useState(false);
   useEffect(() => {
     fetchCities().then((res) => {
@@ -128,7 +128,7 @@ export default function FindRide() {
                 ))}
             </select>
           </fieldset>
-          <fieldset className="flex flex-col gap-2 lg:basis-[47%] w-[100%]">
+          <fieldset className="flex flex-col gap-2 lg:basis-[47%]">
             <label className="font-[600]">To</label>
             <select
               className="h-[4rem] p-3 border-input-border rounded-md border-[2px] focus:outline-none cursor-pointer text-secondary w-[100%]"
@@ -165,7 +165,7 @@ export default function FindRide() {
           <div className="flex flex-col lg:basis-[47%] justify-end">
             <button
               disabled={isloading}
-              className="bg-primary text-white rounded-full w-[100%] h-[4rem] font-bold hover:bg-hover hover:translate-y-[-10px] hover:transition-all duration-300 ease-in-out disabled:bg-gray-400 disabled:hover:cursor-not-allowed"
+              className="bg-primary text-white rounded-full w-[100%] h-[4rem] font-bold hover:bg-secondary hover:translate-y-[-10px] hover:transition-all duration-300 ease-in-out disabled:bg-gray-400 disabled:hover:cursor-not-allowed"
             >
               {isloading ? <Loader /> : "Find ride"}
             </button>
